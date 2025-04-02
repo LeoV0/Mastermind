@@ -71,12 +71,12 @@ button {
 }
 
 #replayButton {
-  background-color: #a72828;
+  background-color: #095e97;
   color: #fff;
 }
 
 #replayButton:hover {
-  background-color: #882121;
+  background-color: #215f88;
 }
 
 #isValidate {

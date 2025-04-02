@@ -31,8 +31,13 @@ let correctAnswer = [];
 let previousAttempts = [];
 
 function shuffleAndExtract(colorChoose) {
-  colorChoose.sort(() => Math.random() - 0.5);
+  // Mélange Fisher-Yates
+  for (let i = colorChoose.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [colorChoose[i], colorChoose[j]] = [colorChoose[j], colorChoose[i]];
+  }
   console.log("Tableau mélangé :", colorChoose);
+  correctAnswer = [];
   for (let i = 0; i < 4 && i < colorChoose.length; i++) {
     correctAnswer.push(colorChoose[i]);
   }
@@ -165,6 +170,7 @@ buttonValider.addEventListener("click", () => {
 
   if (colors.length === correctAnswer.length) {
     devineColor(colors);
+    inputText.value = "";
   } else {
     affichageIsValid.innerHTML = "";
     messageErreur.innerHTML = `Veuillez entrer exactement ${correctAnswer.length} couleurs séparées par des espaces.`;
