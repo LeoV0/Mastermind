@@ -6,6 +6,16 @@ const buttonRejouer = document.querySelector("#replayButton");
 const nombreEssais = document.querySelector("#essais");
 const messageErreur = document.querySelector("#errorMessage");
 
+const colorPossible = [
+  "bleu",
+  "rouge",
+  "vert",
+  "jaune",
+  "orange",
+  "violet",
+  "gris",
+  "noir",
+];
 const colorChoose = [
   "bleu",
   "rouge",
@@ -16,14 +26,22 @@ const colorChoose = [
   "orange",
   "noir",
 ];
-// const correctAnswer
-function shuffle(colorChoose) {
+let correctAnswer = [];
+
+function shuffleAndExtract(colorChoose) {
   colorChoose.sort(() => Math.random() - 0.5);
+  console.log("Tableau mélangé :", colorChoose);
+  for (let i = 0; i < 4 && i < colorChoose.length; i++) {
+    correctAnswer.push(colorChoose[i]);
+  }
+
+  console.log("Réponses correctes :", correctAnswer);
 }
-shuffle(colorChoose);
+
+shuffleAndExtract(colorChoose);
 let essais = 0;
 
-affichageCouleur.innerHTML = `Les couleurs disponibles : ${colorChoose}`;
+affichageCouleur.innerHTML = `Les couleurs disponibles : ${colorPossible}`;
 
 function estPropositionValide(colors) {
   if (colors.length !== correctAnswer.length) {
@@ -132,4 +150,6 @@ buttonRejouer.addEventListener("click", () => {
   messageErreur.innerHTML = "";
   nombreEssais.textContent = "Ton nombre d'essai(s) : 0";
   essais = 0;
+  correctAnswer = [];
+  shuffleAndExtract(colorChoose);
 });
