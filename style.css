@@ -8,4 +8,129 @@
 
 body {
   font-family: "Funnel Sans", sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+#colorPossible {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#essais {
+  font-size: 1.1em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+#inputText {
+  width: 80%;
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#inputText:focus {
+  border-color: #007bff;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#valid {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#valid:hover {
+  background-color: #0056b3;
+}
+
+#replayButton {
+  background-color: #a72828;
+  color: #fff;
+}
+
+#replayButton:hover {
+  background-color: #882121;
+}
+
+#isValidate {
+  font-size: 1.1em;
+  color: #28a745;
+  margin-top: 15px;
+  min-height: 20px;
+}
+
+#errorMessage {
+  font-size: 1em;
+  color: #dc3545;
+  margin-top: 10px;
+  min-height: 20px;
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  #inputText {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+#previousAttempts {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#previousAttempts h3 {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#attemptsList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#attemptsList li {
+  font-size: 1em;
+  color: #555;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+#attemptsList li:last-child {
+  border-bottom: none;
 }

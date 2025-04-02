@@ -10,11 +10,15 @@
     <div class="container">
       <h2 id="colorPossible"></h2>
       <p id="essais">Ton nombre d'essai(s) :</p>
-      <input type="text" id="inputText" placeholder="Vos couleurs" />
+      <input type="text" id="inputText" placeholder="bleu rouge vert jaune" />
       <button id="valid">Valider</button>
       <button id="replayButton" style="display: none">Rejouer</button>
       <p id="isValidate"></p>
       <p id="errorMessage"></p>
+      <div id="previousAttempts">
+        <h3>Tentatives précédentes :</h3>
+        <ul id="attemptsList"></ul>
+      </div>
     </div>
 
     <script src="script.js"></script>

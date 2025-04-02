@@ -5,6 +5,7 @@ const affichageIsValid = document.querySelector("#isValidate");
 const buttonRejouer = document.querySelector("#replayButton");
 const nombreEssais = document.querySelector("#essais");
 const messageErreur = document.querySelector("#errorMessage");
+const attemptsList = document.querySelector("#attemptsList");
 
 const colorPossible = [
   "bleu",
@@ -27,6 +28,7 @@ const colorChoose = [
   "noir",
 ];
 let correctAnswer = [];
+let previousAttempts = [];
 
 function shuffleAndExtract(colorChoose) {
   colorChoose.sort(() => Math.random() - 0.5);
@@ -34,7 +36,6 @@ function shuffleAndExtract(colorChoose) {
   for (let i = 0; i < 4 && i < colorChoose.length; i++) {
     correctAnswer.push(colorChoose[i]);
   }
-
   console.log("Réponses correctes :", correctAnswer);
 }
 
@@ -67,7 +68,6 @@ function estPropositionValide(colors) {
 }
 
 function didIWin(proposition) {
-  // Vérifie si toutes les positions correspondent
   let isWin = true;
   for (let i = 0; i < correctAnswer.length; i++) {
     if (proposition[i] !== correctAnswer[i]) {
@@ -77,7 +77,7 @@ function didIWin(proposition) {
   }
 
   if (isWin) {
-    return true;
+    return { win: true };
   } else {
     let bienPlacees = 0;
     let malPlacees = 0;
@@ -107,8 +107,27 @@ function didIWin(proposition) {
     }
 
     affichageIsValid.innerHTML = `Résultat : ${bienPlacees} bien placée(s), ${malPlacees} mal placée(s)`;
-    return false;
+    return { win: false, bienPlacees, malPlacees };
   }
+}
+
+function displayAttempts() {
+  attemptsList.innerHTML = "";
+  previousAttempts.forEach((attempt, index) => {
+    const li = document.createElement("li");
+    if (!attempt.win) {
+      li.textContent = `Essai ${index + 1} : ${attempt.proposition.join(
+        " "
+      )} - ${attempt.bienPlacees} bien placée(s), ${
+        attempt.malPlacees
+      } mal placée(s)`;
+    } else {
+      li.textContent = `Essai ${index + 1} : ${attempt.proposition.join(
+        " "
+      )} - Gagné !`;
+    }
+    attemptsList.appendChild(li);
+  });
 }
 
 function devineColor(proposition) {
@@ -119,7 +138,17 @@ function devineColor(proposition) {
   essais++;
   nombreEssais.textContent = `Ton nombre d'essai(s) : ${essais}`;
 
-  if (didIWin(proposition)) {
+  const result = didIWin(proposition);
+
+  previousAttempts.push({
+    proposition: [...proposition],
+    win: result.win,
+    bienPlacees: result.bienPlacees || 0,
+    malPlacees: result.malPlacees || 0,
+  });
+  displayAttempts();
+
+  if (result.win) {
     affichageIsValid.innerHTML = `Gagné ! en ${essais} essai(s)`;
     buttonValider.style.display = "none";
     buttonRejouer.style.display = "inline-block";
@@ -151,5 +180,7 @@ buttonRejouer.addEventListener("click", () => {
   nombreEssais.textContent = "Ton nombre d'essai(s) : 0";
   essais = 0;
   correctAnswer = [];
+  previousAttempts = [];
+  displayAttempts();
   shuffleAndExtract(colorChoose);
 });
